@@ -1,0 +1,376 @@
+git clone repo
+git add .
+git commit -m "java added"
+git push origin main
+
+
+
+git clone repo
+git pull origin main
+
+
+git branch
+git checkout feat/java
+
+  //using a usestate 
+
+import { useState } from "react";
+
+
+function App() {
+       const[count,setCount]=useState(1);
+       const[Name,setName]=useState("Ug");
+  return (
+    <>
+      <h1>Count:{count}</h1>
+      <button onClick={()=>setCount(count+1)} >Increase</button>
+      <button onClick={()=>setCount(count-1)} >Decrease</button>
+      <button onClick={()=>setCount(count*2)} >Multiple</button>
+      <button onClick={()=>setCount(count/5)} >Divide</button>
+      <button onClick={()=>setCount(0)} >Reset</button>
+
+
+       <h1>Name:{Name}</h1>
+       <button onClick={()=>setName("Pg")}>Change</button>
+       
+
+    </>
+  );
+}
+
+export default App;
+
+//using a array lengthrray finder and less the a
+import { useState } from "react";
+
+function App() {
+  const [arr, setArray] = useState([0, 1, 2, 3, 4, 5]);
+
+  return (
+    <>
+      <h1>Array: {arr.join(", ")}</h1>
+      <h2>Size: {arr.length}</h2>
+      <button onClick={() => setArray([...arr, arr.length])}>
+        Add Element
+      </button>
+      <button onClick={() => setArray(arr.slice(0, -1))}>
+        Remove Element
+      </button>
+      <button onClick={() => setArray([0])}>Clear Element</button>
+    </>
+  );
+}
+
+export default App;
+
+
+//using a visible and unvisible
+import { useState } from "react";
+
+function App() {
+  const [show, setShow] = useState(false);
+
+  return (
+    <>
+          {show && <h1>Welcome</h1> }
+      <button onClick={() => setShow(!show)}>
+        {show ? "Hide" : "Show"}
+      </button>
+
+    </>
+  );
+}
+
+export default App;
+
+
+
+//using a props
+export default function parent(props){
+    console.log(props);
+}
+
+return(
+    <div>
+        <h1>parent</h1>
+        <div>
+            <h1>{props.proinfo.name}</h1>
+            <h1>{props.proinfo.age}</h1>
+            <h1>{props.proinfo.course}</h1>
+
+        </div>
+    </div>
+)
+
+
+export default  function app(){
+  const student={
+    name:"rathinam",
+    age:22,
+    course:"react"
+  }
+     return(
+<>
+    <h1>{student.name}</h1>
+    <h1>{student.age}</h1>
+    <h1>{student.course}</h1>
+
+    <parent proinfo={student}/> 
+</>
+     );
+}
+
+
+
+//using a map
+
+import parent from "./Parent";  
+export default function Parent({ proinfo }) {
+    console.log(proinfo);
+  
+    return (
+      <div>
+        <h1>Parent</h1>
+        <ul>
+          {proinfo.map((u) => (
+            <li key={u.id}>
+              {u.name} - {u.age}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+  
+  
+  // App.jsx
+import Parent from "./Parent";
+
+export default function App() {
+  const students = [
+    { id: 1, name: "karthi", age: 21 },
+    { id: 2, name: "romankarthi", age: 22 },
+    { id: 3, name: "viratkarthi", age: 23 },
+  ];
+
+  return (
+    <div>
+      {students.map((u) => (
+        <h2 key={u.id}>
+          {u.name} — {u.age}
+        </h2>
+      ))}
+      <Parent proinfo={students} />
+    </div>
+  );
+}
+
+
+//using a handlesubmit
+import { useState } from "react";
+
+export default function App() {
+  const [name, setName] = useState("");
+  const [course, setCourse] = useState("");
+  const [mark, setMark] = useState("");
+  const [submit, setSubmit] = useState(""); 
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("user submitted ", name, course, mark);
+    setSubmit({ name, course, mark });
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Enter the Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        /><br/>
+        <input
+          type="text"
+          placeholder="Enter the Course"
+          value={course}
+          onChange={(e) => setCourse(e.target.value)}
+        /><br/>
+        <input
+          type="number"
+          placeholder="Enter the Mark"
+          value={mark}
+          onChange={(e) => setMark(e.target.value)}
+        /><br/>
+
+        <button type="submit">Submit</button>
+        <br />
+        {submit.name && (
+          <>
+            {submit.name} <br />
+            {submit.course} <br />
+            {submit.mark}
+          </>
+        )}
+      </form>
+    </div>
+  );
+}
+
+
+
+//using a handle submit and using more usestate
+import { useState } from "react";
+
+export default function App() {
+  const [student, setStudent] = useState({
+    name: "",
+    marks: "",
+    course: "",
+    dept: "",
+    age: "",
+  });
+  const [submitted, setSubmitted] = useState(null);
+
+  const handleChange = (e) => {
+    setStudent({ ...student, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(student);
+  };
+
+  return (
+    <div className="p-6 bg-gray-900 text-white min-h-screen">
+      <form onSubmit={handleSubmit} className="flex gap-2 mb-6 flex-wrap">
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter student name"
+          value={student.name}
+          onChange={handleChange}
+          className="p-2 rounded text-black"
+        /><br/>
+        <input
+          type="number"
+          name="marks"
+          placeholder="Enter marks"
+          value={student.marks}
+          onChange={handleChange}
+          className="p-2 rounded text-black"
+        /><br/>
+        <input
+          type="text"
+          name="course"
+          placeholder="Enter course"
+          value={student.course}
+          onChange={handleChange}
+          className="p-2 rounded text-black"
+        /><br/>
+        <input
+          type="text"
+          name="dept"
+          placeholder="Enter department"
+          value={student.dept}
+          onChange={handleChange}
+          className="p-2 rounded text-black"
+        /><br/>
+        <input
+          type="number"
+          name="age"
+          placeholder="Enter age"
+          value={student.age}
+          onChange={handleChange}
+          className="p-2 rounded text-black"
+        /><br/>
+        <button type="submit" className="px-4 py-2 bg-white text-black rounded">
+          Submit
+        </button>
+      </form>
+
+      {submitted && (
+        <div>
+          <h2 className="font-bold text-lg mb-2">Submitted Student:</h2>
+          <p>
+            <b>Name:</b> {submitted.name}
+          </p>
+          <p>
+            <b>Marks:</b> {submitted.marks}
+          </p>
+          <p>
+            <b>Course:</b> {submitted.course}
+          </p>
+          <p>
+            <b>Department:</b> {submitted.dept}
+          </p>
+          <p>
+            <b>Age:</b> {submitted.age}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+//passing a parameters
+export default function Parent({ Inc }) {
+    return (
+      <>
+        <button onClick={Inc}>Click Me</button>
+      </>
+    );
+  }
+  
+  
+  import { useState } from "react";
+import Parent from "./Parent";
+
+export default function App() {
+  const [count, setCount] = useState(0);
+
+  const handleCount = () => {
+    setCount(count + 1);
+  };
+
+  return (
+    <>
+      <h1>App counter: {count}</h1>
+      <Parent Inc={handleCount} />
+    </>
+  );
+}
+
+
+//using a filter map
+import { useState } from "react";
+
+export default function App() {
+  const productlist = ["Apple", "Orange", "Banana"];
+  const [products] = useState(productlist);
+  const [search, setSearch] = useState("");
+
+  const filteredProducts = products.filter((item) =>
+    item.toLowerCase().includes(search.toLowerCase())
+  );
+
+  return (
+    <>
+      <h1>Product List</h1>
+      <input
+        type="text"
+        placeholder="Search product"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      <ul>
+        {filteredProducts.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))} 
+      </ul>
+    </>
+  );
+}
+
+
