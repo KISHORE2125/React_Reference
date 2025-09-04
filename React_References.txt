@@ -374,3 +374,111 @@ export default function App() {
 }
 
 
+//using a useeffect render 
+import { useEffect } from "react";
+import { useState } from "react"
+
+export default function App(){
+    const[count,setCount]=useState(0);
+    const[Dcount,setDcount]=useState(0);
+    useEffect(()=>{
+        console.log("Render")
+    },[count])
+    return(
+        <div>
+            <h1>{count}{Dcount}</h1>
+            <button onClick={(e)=>{setCount(count+1)}}></button>
+            <button onClick={(e)=>{setDcount(Dcount-1)}}></button>
+
+        </div>
+    )
+}
+
+
+//using a handle Click
+import React, { useState } from 'react';
+
+export default function ThreeButtonToggle() {
+  const [clickedButton, setClickedButton] = useState('');
+
+  const handleClick = (buttonName) => {
+    setClickedButton(buttonName);
+  };
+
+  return (
+    <div>
+      <button onClick={() => handleClick('Post')}>
+        {clickedButton === 'Post' ? 'Post clicked' : 'Post'}
+      </button>
+
+      <button onClick={() => handleClick('Comment')}>
+        {clickedButton === 'Comment' ? 'Comment clicked' : 'Comment'}
+      </button>
+
+      <button onClick={() => handleClick('Album')}>
+        {clickedButton === 'Album' ? 'Album clicked' : 'Album'}
+      </button>
+    </div>
+  );
+}
+
+
+//using a fetch method in useeffect
+import { useEffect } from "react";
+
+export default function App(){
+  useEffect(()=>{
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+    .then(response => response.json())
+    .then(json => console.log(json))
+  })
+return(
+  <div>App</div>
+)
+}
+
+//print the fetch method on the webpage
+import { useState } from "react";
+import { useEffect } from "react";
+
+export default function App() {
+  const [Data, setData] = useState("");
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then(response => response.json())
+      .then(json => setData(json))
+  })
+  return (
+    <>
+      <div>{Data.completed}</div>
+      <div>{Data.userId}</div>
+      <div>{Data.title}</div>
+      <div>{Data.id}</div>
+    </>
+  )
+}
+
+//print the fetch method to print the array using a map method
+import { useState } from "react";
+import { useEffect } from "react";
+
+export default function App() {
+  const [Data, setData] = useState([]);
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then(response => response.json())
+      .then(json => setData(json))
+  },[]);
+  return (
+    <>
+    {Data.map((todos)=>
+    <div key={todos.id}>
+    <div>id:{todos.id}</div>
+    <div>userId:{todos.userId}</div>
+    <div>title:{todos.title}</div>
+    </div>
+    )}
+
+    </>
+  )
+}
