@@ -39,7 +39,7 @@ function App() {
 }
 
 export default App;
-
+----------------------------------------------------------------------------------------------------------------------------------------------------
 //using a array lengthrray finder and less the a
 import { useState } from "react";
 
@@ -62,7 +62,7 @@ function App() {
 }
 
 export default App;
-
+----------------------------------------------------------------------------------------------------------------------------------------------------
 
 //using a visible and unvisible
 import { useState } from "react";
@@ -82,7 +82,7 @@ function App() {
 }
 
 export default App;
-
+----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 //using a props
@@ -121,7 +121,7 @@ export default  function app(){
 }
 
 
-
+----------------------------------------------------------------------------------------------------------------------------------------------------
 //using a map
 
 import parent from "./Parent";  
@@ -164,7 +164,7 @@ export default function App() {
     </div>
   );
 }
-
+----------------------------------------------------------------------------------------------------------------------------------------------------
 
 //using a handlesubmit
 import { useState } from "react";
@@ -218,7 +218,7 @@ export default function App() {
 }
 
 
-
+----------------------------------------------------------------------------------------------------------------------------------------------------
 //using a handle submit and using more usestate
 import { useState } from "react";
 
@@ -313,7 +313,7 @@ export default function App() {
   );
 }
 
-
+----------------------------------------------------------------------------------------------------------------------------------------------------
 //passing a parameters
 export default function Parent({ Inc }) {
     return (
@@ -342,7 +342,7 @@ export default function App() {
   );
 }
 
-
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //using a filter map
 import { useState } from "react";
 
@@ -394,7 +394,7 @@ export default function App(){
     )
 }
 
-
+----------------------------------------------------------------------------------------------------------------------------------------------------
 //using a handle Click
 import React, { useState } from 'react';
 
@@ -422,7 +422,7 @@ export default function ThreeButtonToggle() {
   );
 }
 
-
+----------------------------------------------------------------------------------------------------------------------------------------------------
 //using a fetch method in useeffect
 import { useEffect } from "react";
 
@@ -436,7 +436,7 @@ return(
   <div>App</div>
 )
 }
-
+----------------------------------------------------------------------------------------------------------------------------------------------------
 //print the fetch method on the webpage
 import { useState } from "react";
 import { useEffect } from "react";
@@ -457,7 +457,7 @@ export default function App() {
     </>
   )
 }
-
+----------------------------------------------------------------------------------------------------------------------------------------------------
 //print the fetch method to print the array using a map method
 import { useState } from "react";
 import { useEffect } from "react";
@@ -482,8 +482,9 @@ export default function App() {
     </>
   )
 }
-
+----------------------------------------------------------------------------------------------------------------------------------------------------
 //using the fetch method to print the array using a map function
+//we can also use a endpoint on the useeffect variable that can mention in next
 
 import React, { useState, useEffect } from "react";
 
@@ -537,6 +538,49 @@ export default function ThreeButtonToggle() {
         albums.map((album) => (
           <div key={album.id}>{album.title}</div>
         ))}
+    </div>
+  );
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+import React, { useState, useEffect } from "react";
+
+export default function App() {
+  const [endpoint, setEndpoint] = useState("posts"); // default = posts
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    
+    fetch(`https://jsonplaceholder.typicode.com/${endpoint}`)
+      .then((res) => res.json())
+      .then((json) => {
+        console.log("Fetched data:", json);
+        setData(json); 
+      })
+      .catch((err) => console.error("Error fetching:", err));
+  }, [endpoint]); 
+
+  return (
+    <div style={{ padding: "20px" }}>
+      <h2>JSONPlaceholder Data</h2>
+
+      {/* Buttons to change endpoint */}
+      <button onClick={() => setEndpoint("posts")}>Posts</button>
+      <button onClick={() => setEndpoint("comments")}>Comments</button>
+      <button onClick={() => setEndpoint("albums")}>Albums</button>
+        <button onClick={() => setEndpoint("photos")}>Photo</button>
+      <h3>Showing {endpoint}</h3>
+
+      <ul>
+        {data.map((item) => (
+          <li key={item.id}>
+            {endpoint === "posts" && item.title}
+            {endpoint === "comments" && item.name}
+            {endpoint === "albums" && item.title}
+            {endpoint === "photos" && item.title}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
